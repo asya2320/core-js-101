@@ -1,3 +1,7 @@
+/* eslint-disable func-names */
+/* eslint-disable prefer-const */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-param-reassign */
 /* ********************************************************************************************
  *                                                                                            *
  * Please read the following tutorial before implementing tasks:                               *
@@ -34,13 +38,8 @@ function findElement(arr, value) {
  *    2 => [ 1, 3 ]
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
-  // const array = new Array(len);
-  // array.fill(1);
-  // array.map((el, index) => {
-  //   el = index * 2 + 1;
-  // });
+function generateOdds(len) {
+  return new Array(len).fill(0).map((_, i) => 2 * i + 1);
 }
 
 /**
@@ -202,8 +201,8 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  return arr.join('\n');
 }
 
 /**
@@ -235,8 +234,14 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  let newArr = [];
+  // eslint-disable-next-line prefer-arrow-callback
+  arr.reduce(function (previousValue, currentValue) {
+    newArr.push(currentValue + previousValue);
+    return currentValue + previousValue;
+  }, 0);
+  return newArr;
 }
 
 /**
@@ -250,8 +255,8 @@ function getMovingSum(/* arr */) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  return arr.filter((item, index) => index % 2 === 1);
 }
 
 /**
@@ -268,8 +273,20 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  let newArr = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (i === 0) {
+      newArr.push(arr[i]);
+    } else {
+      let counter = 0;
+      while (counter <= i) {
+        newArr.push(arr[i]);
+        counter += 1;
+      }
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -285,8 +302,9 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  arr.sort((a, b) => (a < b ? 1 : a > b ? -1 : 0));
+  return arr.slice(0, 3);
 }
 
 /**
@@ -302,8 +320,10 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  arr = arr.filter((el) => el > 0 && typeof el === 'number');
+  arr.sort((a, b) => b - a);
+  return arr.length === 0 ? 0 : arr[0];
 }
 
 /**
@@ -335,8 +355,8 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce((sum, el) => sum + el, 0);
 }
 
 /**
@@ -351,8 +371,8 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.map(Boolean).filter((el) => el === false).length;
 }
 
 /**
@@ -369,8 +389,8 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  return arr.filter((el) => el === item).length;
 }
 
 /**
@@ -384,8 +404,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 /**
@@ -414,8 +434,26 @@ function toStringList(/* arr */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  // eslint-disable-next-line prefer-arrow-callback
+  return arr.sort(function (a, b) {
+    if (a.country < b.country) {
+      return -1;
+      // eslint-disable-next-line no-else-return
+    } else if (a.country > b.country) {
+      return 1;
+    } else {
+      // eslint-disable-next-line no-lonely-if
+      if (a.city < b.city) {
+        return -1;
+        // eslint-disable-next-line no-else-return
+      } else if (a.city > b.city) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  });
 }
 
 /**
@@ -453,8 +491,14 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  let newArr = [];
+  let currentC = start;
+  for (let i = 0; i < end - start + 1; i += 1) {
+    newArr.push(currentC);
+    currentC += 1;
+  }
+  return newArr;
 }
 
 /**
@@ -468,8 +512,15 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  let newArr = [];
+  arr.filter((el) => {
+    if (newArr.indexOf(el) === -1) {
+      newArr.push(el);
+    }
+    return el;
+  });
+  return newArr;
 }
 
 /**
